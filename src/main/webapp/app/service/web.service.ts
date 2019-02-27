@@ -9,25 +9,22 @@ import { map, catchError, tap } from 'rxjs/operators';
 export class WebService {
 
   readonly endpoint = 'http://localhost:8080/';
-  readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
-  };
 
   constructor(private http: HttpClient) { }
 
-  private extractData(res: Response) {
-    let body = res;
-    return body || { };
-  }
-
   httpServletResponse(): Observable<any> {
-    return this.http.get(this.endpoint + 'http-servlet-response').pipe(
-      map(this.extractData));
+    return this.http.get(this.endpoint + 'http-servlet-response');
   }
 
   postHttpServletResponse(): Observable<any> {
-    return this.http.post(this.endpoint + 'post-http-servlet-response', {}, { observe: 'response' });
+    return this.http.post(this.endpoint + 'post-http-servlet-response', {}, {headers: null, responseType: 'text'});
+  }
+
+  takeTime(): Observable<any> {
+    return this.http.get(this.endpoint + 'takeTime');
+  }
+
+  changeSize(): Observable<any> {
+      return this.http.post(this.endpoint + 'changeSize', {}, {headers: null, responseType: 'text'});
   }
 }

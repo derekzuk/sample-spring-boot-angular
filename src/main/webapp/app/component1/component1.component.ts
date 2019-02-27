@@ -12,6 +12,7 @@ export class Component1Component implements OnInit {
 
   ngOnInit() {
     this.webService.httpServletResponse().subscribe();
+    this.webService.changeSize().subscribe();
   }
 
 }
